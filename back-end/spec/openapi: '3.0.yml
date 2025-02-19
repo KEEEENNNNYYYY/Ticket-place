@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  title: TicketPlace API
+  description: API for managing events, ticket sales, and user interactions on the TicketPlace platform.
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000/
+    description: TicketPlace API server
+
+paths:
+  /events:
+    get:
+      summary: Get a list of events
+      description: Retrieve a list of all available events.
+      responses:
+        '200':
+          description: A list of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+
+  /events/{eventName}:
+    get:
+      summary: Get details for a specific event
+      description: Retrieve detailed information about a single event.
+      parameters:
+        - name: eventName
+          in: path
+          required: true
+          description: The name of the event to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detailed event information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '404':
+          description: Event not found
+
+  /cart:
+    get:
+      summary: Get details of the cart
+      description: Retrieve the details of the reserved tickets in the cart.
+      responses:
+        '200':
+          description: List of tickets reserved in the cart
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Ticket'
+
+    post:
+      summary: Add a ticket to the cart
+      description: Add a ticket to the cart for a specific event.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ticket'
+      responses:
+        '200':
+          description: Ticket successfully added to the cart
+        '400':
+          description: Invalid ticket data
+
+    delete:
+      summary: Remove a ticket from the cart
+      description: Remove a ticket from the cart based on ticket ID.
+      parameters:
+        - name: ticketId
+          in: path
+          required: true
+          description: The ID of the ticket to remove from the cart
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Ticket successfully removed from the cart
+        '404':
+          description: Ticket not found in cart
+
+components:
+  schemas:
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+        eventName:
+          type: string
+        date:
+          type: string
+          format: date-time
+        location:
+          type: string
+        eventType:
+          type: string
+        price:
+          type: object
+          properties:
+            Ticket:
+              type: array
+              items:
+              $ref: '#/components/schemas/Ticket'
+            
+        ticketsAvailable:
+          type: integer
+        imageUrl:
+          type: string
+          format: uri
+
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: string
+        eventId:
+          type: string
+        type:
+          type: string
+        ticketPrice:
+          type: number
+          format: float
+        ticketType:
+          type: string
+          enum:
+            - SIMPLE
+            - SILVER
+            - GOLD
+            - VIP
+        seat:
+          type: string
+
+    Cart:
+      type: object
+      properties:
+        tickets:
+          type: array
+          items:
+            $ref: '#/components/schemas/Ticket'
+
