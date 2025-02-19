@@ -53,9 +53,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Ticket'
+                $ref: '#/components/schemas/Cart'
 
     post:
       summary: Add a ticket to the cart
@@ -104,14 +102,17 @@ components:
           type: string
         eventType:
           type: string
-        price:
+        ticket:
           type: object
           properties:
-            Ticket:
-              type: array
-              items:
+            SIMPLE:
               $ref: '#/components/schemas/Ticket'
-            
+            SILVER:
+              $ref: '#/components/schemas/Ticket'
+            GOLD:
+              $ref: '#/components/schemas/Ticket'
+            PRENIUM:
+              $ref: '#/components/schemas/Ticket'
         ticketsAvailable:
           type: integer
         imageUrl:
@@ -123,10 +124,6 @@ components:
       properties:
         id:
           type: string
-        eventId:
-          type: string
-        type:
-          type: string
         ticketPrice:
           type: number
           format: float
@@ -136,15 +133,18 @@ components:
             - SIMPLE
             - SILVER
             - GOLD
-            - VIP
+            - PRENIUM
         seat:
           type: string
 
     Cart:
-      type: object
-      properties:
-        tickets:
-          type: array
-          items:
-            $ref: '#/components/schemas/Ticket'
-
+      type: array
+      items:
+        type: object
+        properties:
+          eventName:
+            type: string
+          ticket:
+            type: array
+            items:
+              $ref: '#/components/schemas/Ticket'
