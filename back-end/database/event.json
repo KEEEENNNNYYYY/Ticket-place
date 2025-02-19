@@ -1,0 +1,37 @@
+[
+    {
+        "id": "01",
+        "eventName": "ankodahoda show",
+        "date": "2025-02-19T13:14:45.028Z",
+        "location": "ankodahoda",
+        "eventType": "Live",
+        "ticket": {
+            "SIMPLE": {
+                "id": "01",
+                "ticketPrice": 1000,
+                "ticketType": "SIMPLE",
+                "seat": "place libre"
+            },
+            "SILVER": {
+                "id": "02",
+                "ticketPrice": 2000,
+                "ticketType": "SIMPLE",
+                "seat": "place libre"
+            },
+            "GOLD": {
+                "id": "03",
+                "ticketPrice": 3000,
+                "ticketType": "SIMPLE",
+                "seat": "place libre"
+            },
+            "PRENIUM": {
+                "id": "04",
+                "ticketPrice": 4000,
+                "ticketType": "SIMPLE",
+                "seat": "place libre"
+            }
+        },
+        "ticketsAvailable":100,
+        "imageUrl": "string"
+    }
+]
