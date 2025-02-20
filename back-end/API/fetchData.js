@@ -1,7 +1,7 @@
 const axios = require('axios');
 const paginateData = require('./pagination');
 /**
- * fetch data from the url `http://localhost:5000/events`
+ * fetch paginate data from the url `http://localhost:5000/events`
  * */
 async function fetchEventData(page) {
     try {
