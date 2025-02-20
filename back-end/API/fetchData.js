@@ -1,15 +1,14 @@
 const axios = require('axios');
+const paginateData = require('./pagination');
 /**
  * fetch data from the url `http://localhost:5000/events`
  * */
-async function fetchEventData() {
+async function fetchEventData(page) {
     try {
         let response = await axios.get('http://localhost:5000/events');
-        return response.data;
+        return paginateData(response.data, page);
     } catch (error) {
         console.error('Error fetching data:', error);
     }
 }
-fetchEventData();
-
 module.exports = fetchEventData;
